@@ -2,9 +2,7 @@ import json
 import requests
 import sys
 import geocoder
-
-
-
+import getopt
 
 
 class Weatherman:
@@ -13,20 +11,45 @@ class Weatherman:
     currentTemp = 0
     outputTemp = 0
     units = 'C'
+    searchMode = False
+    searchQuery = ""
 
     def convertToFarenheit(currentTemp):
         convertedTemp = currentTemp * 9 / 5 + 32
         return round(convertedTemp, 2)
 
-    def readData():
-        g = geocoder.ip('me')
-        latlon = g.latlng
+    def validateInput():
+        opts, remainder = getopt.getopt(sys.argv[1:], "u:s:h",
+                                        ["units=", "search=", "help"])
+        for opt, arg in opts:
+            if opt in ('-u', '--units'):
+                Weatherman.units = arg
+            elif opt in ('-s', '--search'):
+                Weatherman.searchMode = True
+                Weatherman.searchQuery = arg
+            elif opt in ('-h', '--help'):
+                print("To be filled in later")
+                exit(0)
 
-        # city = geocoder.google("moscow")
-        # latlon = city.southwest
+    def readData():
+        if not Weatherman.searchMode:
+            g = geocoder.ip('me')
+            latlon = g.latlng
+        else:
+            try:
+                for attempt in range(3):
+                    latlon = geocoder.google(Weatherman.searchQuery).southwest
+                    if latlon != None:
+                        break
+                    raise TypeError
+            except TypeError:
+                print("Invalid search query")
+                exit(1)
+
         Weatherman.latitude = latlon[0]
         Weatherman.longitude = latlon[1]
-        queryLocation = "https://www.metaweather.com/api/location/search/?lattlong=" + str(Weatherman.latitude) + "," + str(
+        queryLocation = "https://www.metaweather.com/api/location/search/?lattlong=" + str(
+            Weatherman.latitude) + "," + str(
             Weatherman.longitude)
         locationData = requests.get(queryLocation).text
         jsonLocationData = json.loads(locationData)
@@ -42,8 +65,6 @@ class Weatherman:
         Weatherman.outputTemp = Weatherman.currentTemp
 
     def printOutput():
-        if len(sys.argv) == 2:
-            Weatherman.units = sys.argv[1]
 
         if Weatherman.units == 'F':
             Weatherman.outputTemp = Weatherman.convertToFarenheit(Weatherman.currentTemp)
@@ -63,5 +84,7 @@ class Weatherman:
         else:
             print("You shouldn't be outside. Temperature is:", Weatherman.outputTemp, Weatherman.units)
 
+
+Weatherman.validateInput()
 Weatherman.readData()
 Weatherman.printOutput()
