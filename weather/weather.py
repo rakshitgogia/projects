@@ -37,7 +37,7 @@ class Weatherman:
             latlon = g.latlng
         else:
             try:
-                for attempt in range(3):
+                for attempt in range(10):
                     latlon = geocoder.google(self.searchQuery).southwest
                     if latlon != None:
                         break
