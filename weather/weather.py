@@ -62,11 +62,13 @@ class Weatherman:
         jsonData = json.loads(data)
 
         self.currentTemp = jsonData['consolidated_weather'][0]['the_temp']
-        
+       	 
         if self.units == 'F':
             self.outputTemp = self.convertToFarenheit(self.currentTemp)
         else:
           self.outputTemp = self.currentTemp
+        self.outputTemp = round(self.outputTemp, 2)
+
     def printOutput(self):
         if self.currentTemp > 30:
             print("Bring a cap! Temperature is:", self.outputTemp, self.units)
