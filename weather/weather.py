@@ -14,9 +14,9 @@ class Weatherman:
     searchMode = False
     searchQuery = ""
 
-    def convertToFarenheit(currentTemp):
-        convertedTemp = currentTemp * 9 / 5 + 32
-        return round(convertedTemp, 2)
+    def convertToFarenheit(self, currentTemp):
+        self.convertedTemp = currentTemp * 9 / 5 + 32
+        return round(self.convertedTemp, 2)
 
     def validateInput(self):
         opts, remainder = getopt.getopt(sys.argv[1:], "u:s:h",
