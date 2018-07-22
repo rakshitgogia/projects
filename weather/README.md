@@ -28,6 +28,8 @@ python3 weather.py \[options]
 > -u, --units <C/ F>: Gives you output in Celsius or Fahrenheit depending
 on the option you provided (default is Celsius)
 
+> -h, --help: Print help message
+
 ### examples:
 
 ```

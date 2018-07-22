@@ -9,7 +9,7 @@ class Weatherman:
     def __init__(self, units_in):
         self.units = units_in
         self.searchMode = False
-        self.connectionTries = 3
+        self.connectionTries = 5
 
     def validateInput(self):
         opts, remainder = getopt.getopt(sys.argv[1:], "u:s:h",
@@ -21,18 +21,20 @@ class Weatherman:
                 self.searchMode = True
                 self.searchQuery = arg
             elif opt in ('-h', '--help'):
-                print("To be filled in later")
+                print("python3 weather.py \[options]")
                 exit(0)
 
     def readData(self):
         if not self.searchMode:
+            # get latitude and longitude from IP Address
             g = geocoder.ip('me')
             latlon = g.latlng
         else:
+            # get latitude and longitude from search query
             latlon = self.getSearchQuery()
-
         self.latitude = latlon[0]
         self.longitude = latlon[1]
+        # parse json data from API
         queryLocation = "https://www.metaweather.com/api/location/search/?lattlong=" + \
                         str(self.latitude) + "," + str(self.longitude)
         locationData = requests.get(queryLocation).text
@@ -40,20 +42,20 @@ class Weatherman:
         id = jsonLocationData[0]['woeid']
         cityName = jsonLocationData[0]['title']
         print("You are in:", cityName)
-        queryData = "https://www.metaweather.com/api/location/" + str(id) + "/"
-        data = requests.get(queryData).text
+        queryID = "https://www.metaweather.com/api/location/" + str(id) + "/"
+        idData = requests.get(queryID).text
+        jsonIDData = json.loads(idData)
+        self.currentTemp = jsonIDData['consolidated_weather'][0]['the_temp']
 
-        jsonData = json.loads(data)
-
-        self.currentTemp = jsonData['consolidated_weather'][0]['the_temp']
-       	 
         if self.units == 'F':
             self.outputTemp = self.convertToFarenheit(self.currentTemp)
         else:
           self.outputTemp = self.currentTemp
+        # round to 2 decimal places
         self.outputTemp = round(self.outputTemp, 2)
 
     def printOutput(self):
+        # output what clothes to wear based on weather
         if self.currentTemp > 30:
             print("Bring a cap! Temperature is:", self.outputTemp, self.units)
         elif self.currentTemp > 20:
