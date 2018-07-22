@@ -7,7 +7,7 @@ Weatherman detects your location and tells you what to wear based on the weather
 Deciding what to wear is a daily struggle and Weatherman helps you out with that.
 
 ## Requirements:
-You need to have requests (http://docs.python-requests.org/en/master/) and geocoder (https://pypi.org/project/geocoder/1.0.0/) installed
+You need to have requests (http://docs.python-requests.org/en/master/) and geocoder (https://pypi.org/project/geocoder/1.0.0/) installed.
 
 ## Usage:
 python3 weather.py \[options]
@@ -31,7 +31,7 @@ Wear T-Shirt and Shorts. Temperature is: 29.76 C
 ```
 
 ```
-python3 weather.py -s Melbourne
+python3 weather.py -s "Melbourne"
 You are in: Melbourne
 Wear a light jacket. Temperature is: 12.41 C
 ```
