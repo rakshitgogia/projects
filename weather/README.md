@@ -1,4 +1,4 @@
-# weather
+# Weatherman
 By Rakshit Gogia
 
 Version 1.0, 22nd July 2018
