@@ -21,7 +21,9 @@ class Weatherman:
                 self.searchMode = True
                 self.searchQuery = arg
             elif opt in ('-h', '--help'):
-                print("python3 weather.py \[options]")
+                print("Usage:\n"
+                      "python3 weather.py [--search <city_name>][--units <C/F>]\n"
+                      "For more information, read the README.md file")
                 exit(0)
 
     def readData(self):

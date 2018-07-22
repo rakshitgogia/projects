@@ -1,7 +1,7 @@
 # Weatherman
 By Rakshit Gogia
 
-Version 1.1, 22nd July 2018
+Version 1.2, 23rd July 2018
 
 Deciding what to wear is a daily struggle and Weatherman helps you out with that.
 Weatherman detects your location and tells you what to wear based on the weather.
