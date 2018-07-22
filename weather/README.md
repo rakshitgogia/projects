@@ -13,13 +13,14 @@ You need to have requests (http://docs.python-requests.org/en/master/) and geoco
 python3 weather.py \[options]
 
 ### options:
-```
-default: Weatherman detects your location based on your IP address and tells you what to wear based on the weather
 
--s, --search "<city name>": Weatherman searches for the city you entered and tells residents of that city what to wear
+> default: Weatherman detects your location based on your IP address and tells you what to wear based on the weather
 
--u, --units <C/ F>: Gives you output in Celsius or Farenheit depending on the option you provided (default is Celsius)
-```
+> -s, --search "<city name>": Weatherman searches for the city you entered
+ and tells residents of that city what to wear
+
+> -u, --units <C/ F>: Gives you output in Celsius or Farenheit depending
+on the option you provided (default is Celsius)
 
 ### examples:
 
