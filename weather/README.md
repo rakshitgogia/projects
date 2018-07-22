@@ -7,7 +7,13 @@ Weatherman detects your location and tells you what to wear based on the weather
 Deciding what to wear is a daily struggle and Weatherman helps you out with that.
 
 ## Requirements:
-You need to have requests (http://docs.python-requests.org/en/master/) and geocoder (https://pypi.org/project/geocoder/1.0.0/) installed.
+You need to have the following installed:
+- [python3](https://www.python.org/downloads/)
+
+- [requests](http://docs.python-requests.org/en/master/)
+
+- [geocoder](https://pypi.org/project/geocoder/1.0.0/)
+
 
 ## Usage:
 python3 weather.py \[options]
