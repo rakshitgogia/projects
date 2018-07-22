@@ -6,17 +6,10 @@ import getopt
 
 
 class Weatherman:
-    latitude = 0
-    longitude = 0
-    currentTemp = 0
-    outputTemp = 0
-    units = 'C'
-    searchMode = False
-    searchQuery = ""
-
-    def convertToFarenheit(self, currentTemp):
-        self.convertedTemp = currentTemp * 9 / 5 + 32
-        return round(self.convertedTemp, 2)
+    def __init__(self, units_in):
+        self.units = units_in
+        self.searchMode = False
+        self.connectionTries = 3
 
     def validateInput(self):
         opts, remainder = getopt.getopt(sys.argv[1:], "u:s:h",
@@ -36,21 +29,12 @@ class Weatherman:
             g = geocoder.ip('me')
             latlon = g.latlng
         else:
-            try:
-                for attempt in range(100):
-                    latlon = geocoder.google(self.searchQuery).southwest
-                    if latlon != None:
-                        break
-                    raise TypeError
-            except TypeError:
-                print("Invalid search query")
-                exit(1)
+            latlon = self.getSearchQuery()
 
         self.latitude = latlon[0]
         self.longitude = latlon[1]
-        queryLocation = "https://www.metaweather.com/api/location/search/?lattlong=" + str(
-            self.latitude) + "," + str(
-            self.longitude)
+        queryLocation = "https://www.metaweather.com/api/location/search/?lattlong=" + \
+                        str(self.latitude) + "," + str(self.longitude)
         locationData = requests.get(queryLocation).text
         jsonLocationData = json.loads(locationData)
         id = jsonLocationData[0]['woeid']
@@ -85,9 +69,27 @@ class Weatherman:
         else:
             print("You shouldn't be outside. Temperature is:", self.outputTemp, self.units)
 
-first = Weatherman()
+    # helper functions
+    def convertToFarenheit(self, currentTemp):
+        self.convertedTemp = currentTemp * 9 / 5 + 32
+        return round(self.convertedTemp, 2)
 
-first.validateInput()
-first.readData()
-first.printOutput()
+    def getSearchQuery(self):
+        try:
+            # try to search 3 times
+            for attempt in range(self.connectionTries):
+                latlon = geocoder.google(self.searchQuery).southwest
+                if latlon:
+                    return latlon
+            raise TypeError
+        except TypeError:
+            print("Invalid search query")
+            exit(1)
 
+
+# default is Celsius mode
+myWeatherman = Weatherman('C')
+
+myWeatherman.validateInput()
+myWeatherman.readData()
+myWeatherman.printOutput()

@@ -1,10 +1,10 @@
 # Weatherman
 By Rakshit Gogia
 
-Version 1.0, 22nd July 2018
+Version 1.1, 22nd July 2018
 
-Weatherman detects your location and tells you what to wear based on the weather.
 Deciding what to wear is a daily struggle and Weatherman helps you out with that.
+Weatherman detects your location and tells you what to wear based on the weather.
 
 ## Requirements:
 You need to have the following installed:
@@ -25,7 +25,7 @@ python3 weather.py \[options]
 > -s, --search "\<City Name>": Weatherman searches for the city you entered
  and tells residents of that city what to wear
 
-> -u, --units <C/ F>: Gives you output in Celsius or Farenheit depending
+> -u, --units <C/ F>: Gives you output in Celsius or Fahrenheit depending
 on the option you provided (default is Celsius)
 
 ### examples:
