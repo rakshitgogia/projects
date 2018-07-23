@@ -3,31 +3,42 @@ import requests
 import sys
 import geocoder
 import getopt
+import argparse
+
+
 
 
 class Weatherman:
     def __init__(self, units_in):
         self.units = units_in
-        self.searchMode = False
+        self.searchQuery = False
         self.connectionTries = 5
 
     def validateInput(self):
-        opts, remainder = getopt.getopt(sys.argv[1:], "u:s:h",
-                                        ["units=", "search=", "help"])
-        for opt, arg in opts:
-            if opt in ('-u', '--units'):
-                self.units = arg
-            elif opt in ('-s', '--search'):
-                self.searchMode = True
-                self.searchQuery = arg
-            elif opt in ('-h', '--help'):
-                print("Usage:\n"
-                      "python3 weather.py [--search <city_name>][--units <C/F>]\n"
-                      "For more information, read the README.md file")
-                exit(0)
+        parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description='Deciding what to wear is a daily struggle and Weatherman helps you out with that.\nWeatherman detects your location and tells you what to wear based on the weather.')
+        parser.add_argument('--search', '-s', help='Weatherman searches for the city you entered and tells residents of that city what to wear')
+        parser.add_argument('--units', '-u', help='Gives you output in Celsius or Fahrenheit depending on the option you provided (default is Celsius)',choices=['C','F'])
+        args = parser.parse_args()
+        if args.units:
+            self.units = args.units
+        if args.search:
+            self.searchQuery = args.search
+#        opts, remainder = getopt.getopt(sys.argv[1:], "u:s:h",
+                                        # ["units=", "search=", "help"])
+        # for opt, arg in opts:
+        #     if opt in ('-u', '--units'):
+            #     self.units = arg
+            # elif opt in ('-s', '--search'):
+            #     self.searchMode = True
+            #     self.searchQuery = arg
+            # elif opt in ('-h', '--help'):
+            #     print("Usage:\n"
+            #           "python3 weather.py [--search <city_name>][--units <C/F>]\n"
+            #           "For more information, read the README.md file")
+            #     exit(0)
 
     def readData(self):
-        if not self.searchMode:
+        if not self.searchQuery:
             # get latitude and longitude from IP Address
             g = geocoder.ip('me')
             latlon = g.latlng
