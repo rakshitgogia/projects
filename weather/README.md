@@ -16,20 +16,19 @@ You need to have the following installed:
 
 
 ## Usage:
-python3 weather.py \[options]
+python3 weather.py \[-h] \[-s <city name>] \[-u {C,F}]
 
-### options:
 
-> default: Weatherman detects your location based on your IP address and tells you what to wear based on the weather
-
-> -s, --search "\<City Name>": Weatherman searches for the city you entered
- and tells residents of that city what to wear
-
-> -u, --units <C/ F>: Gives you output in Celsius or Fahrenheit depending
-on the option you provided (default is Celsius)
-
-> -h, --help: Print help message
-
+### optional arguments:
+```
+  -h, --help            show this help message and exit
+  -s "<city name>", --search "<city name>"
+                        Weatherman searches for the city you entered and tells
+                        residents of that city what to wear
+  -u {C,F}, --units {C,F}
+                        Gives you output in Celsius or Fahrenheit depending on
+                        the option you provided (default is Celsius)
+```
 ### examples:
 
 ```
