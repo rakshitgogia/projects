@@ -7,10 +7,10 @@ import argparse
 class Weatherman:
     def __init__(self, units_in):
         self.units = units_in
-        self.searchQuery = False
-        self.connectionTries = 5
+        self.search_query = False
+        self.connection_tries = 5
 
-    def validateInput(self):
+    def validate_input(self):
         parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
                                          description='Deciding what to wear is a daily struggle and '
                                                      'Weatherman helps you out with that.'
@@ -28,65 +28,65 @@ class Weatherman:
         if args.units:
             self.units = args.units
         if args.search:
-            self.searchQuery = args.search
+            self.search_query = args.search
 
-    def readData(self):
-        if not self.searchQuery:
+    def read_data(self):
+        if not self.search_query:
             # get latitude and longitude from IP Address
             g = geocoder.ip('me')
             latlon = g.latlng
         else:
             # get latitude and longitude from search query
-            latlon = self.getSearchQuery()
+            latlon = self.get_search_query()
         self.latitude = latlon[0]
         self.longitude = latlon[1]
         # parse json data from API
-        queryLocation = "https://www.metaweather.com/api/location/search/?lattlong=" + \
+        query_location = "https://www.metaweather.com/api/location/search/?lattlong=" + \
                         str(self.latitude) + "," + str(self.longitude)
-        locationData = requests.get(queryLocation).text
-        jsonLocationData = json.loads(locationData)
-        id = jsonLocationData[0]['woeid']
-        cityName = jsonLocationData[0]['title']
-        print("You are in:", cityName)
-        queryID = "https://www.metaweather.com/api/location/" + str(id) + "/"
-        idData = requests.get(queryID).text
-        jsonIDData = json.loads(idData)
-        self.currentTemp = jsonIDData['consolidated_weather'][0]['the_temp']
+        location_data = requests.get(query_location).text
+        json_location_data = json.loads(location_data)
+        id = json_location_data[0]['woeid']
+        city_name = json_location_data[0]['title']
+        print("You are in:", city_name)
+        query_iD = "https://www.metaweather.com/api/location/" + str(id) + "/"
+        id_data = requests.get(query_iD).text
+        json_iDData = json.loads(id_data)
+        self.current_temp = json_iDData['consolidated_weather'][0]['the_temp']
 
         if self.units == 'F':
-            self.outputTemp = self.convertToFarenheit(self.currentTemp)
+            self.output_temp = self.convert_to_farenheit(self.current_temp)
         else:
-            self.outputTemp = self.currentTemp
+            self.output_temp = self.current_temp
         # round to 2 decimal places
-        self.outputTemp = round(self.outputTemp, 2)
+        self.output_temp = round(self.output_temp, 2)
 
-    def printOutput(self):
+    def print_output(self):
         # output what clothes to wear based on weather
-        if self.currentTemp > 30:
-            print("Bring a cap! Temperature is:", self.outputTemp, self.units)
-        elif self.currentTemp > 20:
-            print("Wear T-Shirt and Shorts. Temperature is:", self.outputTemp, self.units)
-        elif self.currentTemp > 10:
-            print("Wear a light jacket. Temperature is:", self.outputTemp, self.units)
-        elif self.currentTemp > 0:
-            print("Wear a thick jacket. Temperature is:", self.outputTemp, self.units)
-        elif self.currentTemp > -10:
-            print("Wear multiple layers. Temperature is:", self.outputTemp, self.units)
-        elif self.currentTemp > -20:
-            print("Wear a parka. Temperature is:", self.outputTemp, self.units)
+        if self.current_temp > 30:
+            print("Bring a cap! Temperature is:", self.output_temp, self.units)
+        elif self.current_temp > 20:
+            print("Wear T-Shirt and Shorts. Temperature is:", self.output_temp, self.units)
+        elif self.current_temp > 10:
+            print("Wear a light jacket. Temperature is:", self.output_temp, self.units)
+        elif self.current_temp > 0:
+            print("Wear a thick jacket. Temperature is:", self.output_temp, self.units)
+        elif self.current_temp > -10:
+            print("Wear multiple layers. Temperature is:", self.output_temp, self.units)
+        elif self.current_temp > -20:
+            print("Wear a parka. Temperature is:", self.output_temp, self.units)
         else:
-            print("You shouldn't be outside. Temperature is:", self.outputTemp, self.units)
+            print("You shouldn't be outside. Temperature is:", self.output_temp, self.units)
 
     # helper functions
-    def convertToFarenheit(self, currentTemp):
-        self.convertedTemp = currentTemp * 9 / 5 + 32
-        return round(self.convertedTemp, 2)
+    def convert_to_farenheit(self, current_temp):
+        self.converted_temp = current_temp * 9 / 5 + 32
+        return round(self.converted_temp, 2)
 
-    def getSearchQuery(self):
+    def get_search_query(self):
         try:
             # try to search 3 times
-            for attempt in range(self.connectionTries):
-                latlon = geocoder.google(self.searchQuery).southwest
+            for attempt in range(self.connection_tries):
+                latlon = geocoder.google(self.search_query).southwest
                 if latlon:
                     return latlon
             raise TypeError
@@ -96,8 +96,8 @@ class Weatherman:
 
 
 # default is Celsius mode
-myWeatherman = Weatherman('C')
+my_weatherman = Weatherman('C')
 
-myWeatherman.validateInput()
-myWeatherman.readData()
-myWeatherman.printOutput()
+my_weatherman.validate_input()
+my_weatherman.read_data()
+my_weatherman.print_output()
