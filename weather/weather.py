@@ -16,8 +16,8 @@ class Weatherman:
 
     def validateInput(self):
         parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description='Deciding what to wear is a daily struggle and Weatherman helps you out with that.\nWeatherman detects your location and tells you what to wear based on the weather.')
-        parser.add_argument('--search', '-s', help='Weatherman searches for the city you entered and tells residents of that city what to wear')
-        parser.add_argument('--units', '-u', help='Gives you output in Celsius or Fahrenheit depending on the option you provided (default is Celsius)',choices=['C','F'])
+        parser.add_argument('-s', '--search', metavar = '<city name>', help='Weatherman searches for the city you entered and tells residents of that city what to wear')
+        parser.add_argument('-u', '--units', help='Gives you output in Celsius or Fahrenheit depending on the option you provided (default is Celsius)',choices=['C','F'])
         args = parser.parse_args()
         if args.units:
             self.units = args.units
