@@ -6,6 +6,8 @@ Version 1.2, 23rd July 2018
 Deciding what to wear is a daily struggle and Weatherman helps you out with that.
 Weatherman detects your location and tells you what to wear based on the weather.
 
+The weather data is sourced from MetaWeather's API - https://www.metaweather.com/api/
+
 ## Requirements:
 You need to have the following installed:
 - [python3](https://www.python.org/downloads/)
