@@ -23,7 +23,7 @@ tasks.append(task_one)
 tasks.append(task('Task 2'))
 #print output 
 output = PrettyTable()
-output.field_names = ["ID", "NAME", "DUE", "PRIORITY", "DATE CREATED"]
+output.field_names = [ "ID", "NAME", "DUE", "PRIORITY", "CREATED"]
 for task in tasks:
     output.add_row([task.id, task.name, 
         task.due_date.strftime("%a, %d %b %Y"),
