@@ -29,22 +29,22 @@ class todo_manager:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description='Make your todo-list from the command line')
         parser.add_argument('-n', '--name',
-                            metavar='"<task name>"',
+                            metavar='"TASK NAME"',
                             help='Create a new todo')
         parser.add_argument('-p', '--priority',
                             type=int,
                             default=0,
                             help='Create a new todo')
         parser.add_argument('-u', '--due',
-                            metavar='"<task name>"',
+                            metavar='"TASK NAME"',
                             default="",
                             help='Create a new todo')
         parser.add_argument('-d', '--done',
-                            metavar='task_number',
+                            metavar='TASK_NUMBER',
                             type=int,
                             help='Mark task as done')
         parser.add_argument('-e', '--edit',
-                            metavar='task_number',
+                            metavar='TASK_NUMBER',
                             type=int,
                             help='Edit task with new name, priority or due date')
         parser.add_argument('-cl', '--clear',
