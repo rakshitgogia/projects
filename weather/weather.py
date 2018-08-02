@@ -48,10 +48,10 @@ class Weatherman:
         id = json_location_data[0]['woeid']
         city_name = json_location_data[0]['title']
         print("You are in:", city_name)
-        query_iD = "https://www.metaweather.com/api/location/" + str(id) + "/"
-        id_data = requests.get(query_iD).text
-        json_iDData = json.loads(id_data)
-        self.current_temp = json_iDData['consolidated_weather'][0]['the_temp']
+        query_id = "https://www.metaweather.com/api/location/" + str(id) + "/"
+        id_data = requests.get(query_id).text
+        json_id_data = json.loads(id_data)
+        self.current_temp = json_id_data['consolidated_weather'][0]['the_temp']
 
         if self.units == 'F':
             self.output_temp = self.convert_to_farenheit(self.current_temp)

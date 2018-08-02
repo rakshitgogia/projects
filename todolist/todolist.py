@@ -8,9 +8,6 @@ conn = sqlite3.connect('log.db', detect_types=sqlite3.PARSE_DECLTYPES)
 c = conn.cursor()
 
 
-# Create table if one does not already exist
-
-
 class task:
     def __init__(self, name_in,
                  priority_in, due_date_in):
@@ -71,16 +68,17 @@ class todo_manager:
                 self.edit_task_priority(args.priority, args.edit)
                 print("New priority: {}".format(args.priority))
             if args.due:
-                self.edit_task_due_date(args.due, args.edit)
-                print("New due date: {}".format(args.due))
+                new_due_date = self.edit_task_due_date(args.due, args.edit)
+                print("New due date: {}".format(
+                    new_due_date.strftime("%d %b %Y")))
         elif args.name:
             taskname = ''.join(args.name)
             self.add_task(task(taskname, args.priority, args.due))
             print("Added \"{}\" to your todo-list".format(taskname))
 
         if args.done:
-            print("Completed task number {}: {}".format(args.done,
-                                                      self.get_task(args.done)))
+            print("Completed task {}: {}".format(args.done,
+                                                 self.get_task(args.done)))
             self.delete_task(args.done)
         if args.clear:
             self.clear_all()
@@ -99,16 +97,16 @@ class todo_manager:
             (task.name, task.priority, task.due_date, task.created))
 
     def display_tasks(self):
-        # print output
+        # print output in pretty table format
         output = PrettyTable()
         output.field_names = ["ID", "NAME", "PRIORITY", "DUE", "CREATED"]
         c.execute("SELECT * FROM tasks "
                   "ORDER BY priority DESC, due_date ASC, created DESC")
         log_output = c.fetchall()
         for row in log_output:
-            output.add_row(
-                [row[0], row[1], row[2], row[3].strftime("%a, %d %b %Y"),
-                 row[4].strftime("%d %b %Y")])
+            output.add_row([row[0], row[1], row[2],
+                            row[3].strftime("%a, %d %b %Y"),
+                            row[4].strftime("%d %b %Y")])
 
         print(output)
 
@@ -129,27 +127,27 @@ class todo_manager:
         else:
             print("Invalid task id")
             exit(1)
+
     def edit_task_name(self, name_in, row):
         c.execute("UPDATE tasks "
                   "SET name = ?"
                   "WHERE id = ?", (name_in, row))
+
     def edit_task_priority(self, priority_in, row):
         c.execute("UPDATE tasks "
                   "SET priority = ?"
                   "WHERE id = ?", (priority_in, row))
+
     def edit_task_due_date(self, due_date_in, row):
+        new_due_date = dateparser.parse(due_date_in)
         c.execute("UPDATE tasks "
                   "SET due_date = ?"
-                  "WHERE id = ?", (dateparser.parse(due_date_in), row))
+                  "WHERE id = ?", (new_due_date, row))
+        return new_due_date
+
 
 my_todo = todo_manager()
 my_todo.parse_args()
-# task_one = task('Task 1', due_date_in="July 5 2019")
-# my_todo.add_task(task_one)
-# my_todo.add_task(task('Task 2'))
-# my_todo.add_task(task('Task 3', priority_in=3))
-# my_todo.delete_task(1)
-# my_todo.clear_all()
 my_todo.display_tasks()
 
 # save and quit
