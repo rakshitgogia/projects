@@ -7,8 +7,6 @@ conn = sqlite3.connect('log.db', detect_types=sqlite3.PARSE_DECLTYPES)
 c = conn.cursor()
 
 # Create table if one does not already exist
-c.execute('''CREATE TABLE IF NOT EXISTS tasks
-                     (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, due_date TIMESTAMP, priority INT, created TIMESTAMP)''')
 
 
 class task:
@@ -24,9 +22,17 @@ class task:
 
 
 class todo_manager:
+    def __init__(self):
+        self.initialise()
+
+    def initialise(self):
+        c.execute('''CREATE TABLE IF NOT EXISTS tasks
+                             (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, due_date TIMESTAMP, priority INT, created TIMESTAMP)''')
+
     def add_task(self, task):
         c.execute(
-            "INSERT INTO tasks (name,due_date,priority,created) VALUES (?, ?, ?, ?)",
+            "INSERT INTO tasks (name,due_date,priority,created)"
+            " VALUES (?, ?, ?, ?)",
             (task.name,
              task.due_date,
              task.priority, task.created))
@@ -37,8 +43,8 @@ class todo_manager:
         output.field_names = ["ID", "NAME", "DUE", "PRIORITY"
             , "CREATED"]
         c.execute("SELECT * FROM tasks")
-        c.execute(
-            "SELECT * FROM tasks ORDER BY priority DESC, due_date ASC, created DESC")
+        c.execute("SELECT * FROM tasks"
+                  " ORDER BY priority DESC, due_date ASC, created DESC")
         log_output = c.fetchall()
         for row in log_output:
             output.add_row(
@@ -47,16 +53,26 @@ class todo_manager:
 
         print(output)
 
-    def clear_all(self):
-        c.execute("DELETE FROM tasks")
+    def delete_task(self, input_id):
+        c.execute("DELETE FROM tasks"
+                  " WHERE id = ?", (input_id,))
 
+    def clear_all(self):
+        # c.execute("DELETE FROM tasks")
+        # # start autoincrement from 1 again
+        # c.execute("DELETE FROM sqlite_sequence WHERE name='tasks'")
+        c.execute("DROP TABLE tasks")
+        self.initialise()
 
 my_todo = todo_manager()
+# my_todo.initialise()
 task_one = task('Task 1', due_date_in="July 5 2019")
 my_todo.add_task(task_one)
 my_todo.add_task(task('Task 2'))
 my_todo.add_task(task('Task 3', priority_in=3))
-# my_todo.clear_all()
+my_todo.delete_task(1)
+my_todo.clear_all()
+# my_todo.renumber()
 my_todo.display_tasks()
 
 # save and quit
