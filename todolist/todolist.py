@@ -58,21 +58,16 @@ class todo_manager:
                   " WHERE id = ?", (input_id,))
 
     def clear_all(self):
-        # c.execute("DELETE FROM tasks")
-        # # start autoincrement from 1 again
-        # c.execute("DELETE FROM sqlite_sequence WHERE name='tasks'")
         c.execute("DROP TABLE tasks")
         self.initialise()
 
 my_todo = todo_manager()
-# my_todo.initialise()
 task_one = task('Task 1', due_date_in="July 5 2019")
 my_todo.add_task(task_one)
 my_todo.add_task(task('Task 2'))
 my_todo.add_task(task('Task 3', priority_in=3))
 my_todo.delete_task(1)
 my_todo.clear_all()
-# my_todo.renumber()
 my_todo.display_tasks()
 
 # save and quit
