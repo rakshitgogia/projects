@@ -107,6 +107,7 @@ class todo_manager:
         # print output in pretty table format
         output = PrettyTable()
         output.field_names = ["ID", "NAME", "PRIORITY", "DUE", "CREATED"]
+
         c.execute("SELECT * FROM tasks "
                   "ORDER BY priority DESC, due_date ASC, created DESC")
         log_output = c.fetchall()
