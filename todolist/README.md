@@ -33,9 +33,9 @@ todolist.py \[-h] \[-n "TASK NAME"] \[-p PRIORITY] \[-u DUE DATE]
   ```
 
 ### examples:
-Add a task with a name and optionally witha priority and due date
+Add a task with a name and optionally witha priority and due date:
 
-Tasks are sorted by priority and then by due date
+(Tasks are sorted by priority and then by due date)
  ```
 python3 todolist.py -n "My first task"
 
@@ -69,7 +69,7 @@ Added "My third task" to your todo-list
 | 1  | My first task  |    0     | Fri, 31 Dec 9999 | 04 Aug 2018 |
 +----+----------------+----------+------------------+-------------+
 ```
-Edit the name, priority or due date of a task
+Edit the name, priority or due date of a task:
 ```
 python3 todolist.py -e 2 -p 5
 
@@ -83,7 +83,7 @@ New priority: 5
 | 1  | My first task  |    0     | Fri, 31 Dec 9999 | 04 Aug 2018 |
 +----+----------------+----------+------------------+-------------+
 ```
-View current tasks
+View current tasks:
 ```
 python3 todolist.py
 
@@ -95,7 +95,7 @@ python3 todolist.py
 | 1  | My first task  |    0     | Fri, 31 Dec 9999 | 04 Aug 2018 |
 +----+----------------+----------+------------------+-------------+
 ```
-Mark a task as done
+Mark a task as done:
 ```
 python3 todolist.py -d 1
 
@@ -107,7 +107,7 @@ Completed task 1: My first task
 | 3  | My third task  |    3     | Sun, 05 Aug 2018 | 04 Aug 2018 |
 +----+----------------+----------+------------------+-------------+
 ```
-Clear all tasks
+Clear all tasks:
 ```
 python3 todolist.py -cl
 
@@ -117,7 +117,7 @@ Cleared all your todos
 +----+------+----------+-----+---------+
 +----+------+----------+-----+---------+
 ```
-#### Shortcut
+### Shortcut
 
 To be able to access todolist easily without having to navigate to
 your todolist directory all the time, add this to your ~/.bashrc:
