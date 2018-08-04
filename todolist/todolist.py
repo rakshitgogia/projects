@@ -4,11 +4,13 @@ import dateparser
 import sqlite3
 import argparse
 
+# store tasks data in a basebase for future use
 conn = sqlite3.connect('log.db', detect_types=sqlite3.PARSE_DECLTYPES)
 c = conn.cursor()
 
 
 class task:
+    # create a task
     def __init__(self, name_in,
                  priority_in, due_date_in):
         self.name = name_in
@@ -23,22 +25,23 @@ class task:
 class todo_manager:
     def __init__(self):
         self.initialise()
-
+    # parse command line arguments
     def parse_args(self):
         parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description='Make your todo-list from the command line')
+
         parser.add_argument('-n', '--name',
                             metavar='"TASK NAME"',
-                            help='Create a new todo')
+                            help='Name of todo')
         parser.add_argument('-p', '--priority',
                             type=int,
                             default=0,
-                            help='Create a new todo')
+                            help='Priority of todo')
         parser.add_argument('-u', '--due',
-                            metavar='"TASK NAME"',
+                            metavar='DUE DATE',
                             default="",
-                            help='Create a new todo')
+                            help='Due date of todo')
         parser.add_argument('-d', '--done',
                             metavar='TASK_NUMBER',
                             type=int,
@@ -52,10 +55,8 @@ class todo_manager:
                             help='Clear all todos')
 
         args = parser.parse_args()
-        if (args.due or args.priority) and not args.name:
-            print("Please provide a name for your task")
-            exit(1)
         if args.edit:
+            # if in edit mode, a new name, priority or due date must be provided
             if not (args.name or args.priority or args.due):
                 print("Please provide a new name, priority or due date "
                       "to edit your current task with")
@@ -71,15 +72,21 @@ class todo_manager:
                 new_due_date = self.edit_task_due_date(args.due, args.edit)
                 print("New due date: {}".format(
                     new_due_date.strftime("%d %b %Y")))
+        # create a new task
         elif args.name:
             taskname = ''.join(args.name)
             self.add_task(task(taskname, args.priority, args.due))
             print("Added \"{}\" to your todo-list".format(taskname))
+        # cannot create a task without a name
+        elif (args.due or args.priority) and not args.name:
+            print("Please provide a name for your task")
+            exit(1)
 
         if args.done:
             print("Completed task {}: {}".format(args.done,
                                                  self.get_task(args.done)))
             self.delete_task(args.done)
+
         if args.clear:
             self.clear_all()
             print("Cleared all your todos")
