@@ -69,5 +69,6 @@ class Part2:
 test_one = Part2()
 title_list_one = test_one.url_to_title_list('EECS 370', 'University of Michigan')
 # print(title_list_one)
+
 test_two = Part2()
 title_list_two = test_two.url_to_title_list('EECS 281', 'University of Michigan')
