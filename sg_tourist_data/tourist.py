@@ -34,14 +34,16 @@ df.index = df.index.str.lower()
 # transpose the data set
 df = df.T
 
-df[query_lower].plot()
+plt.plot(df[query_lower], marker='x')
 # add features such as x and y axes labels and x axis ticks
 plt.xlabel("Month")
-if query_lower != "total" and type(query_lower) != list:
-    plt.ylabel("Number of tourist arrivals in 2017 from " + str(query))
-else:
+if type(query_lower) == list:
     plt.ylabel("Number of tourist arrivals in 2017")
+    plt.legend(query)
+elif query_lower == "total":
+    plt.ylabel("Number of tourist arrivals in 2017")
+else:
+    plt.ylabel("Number of tourist arrivals in 2017 from " + str(query))
 xticks_labels = list(df.index.strftime('%b'))
 plt.xticks(df.index, xticks_labels)
-
 plt.show()

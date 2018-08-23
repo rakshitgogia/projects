@@ -19,3 +19,4 @@ sg_tourist_data.py \[-h] \[-q QUERY \[QUERY ...]]
 ```
 ### examples:
 python3 tourist.py
+![total](https://github.com/rakshitgogia/projects/blob/master/sg_tourist_data/examples/total.png)
