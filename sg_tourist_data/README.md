@@ -21,3 +21,11 @@ sg_tourist_data.py \[-h] \[-q QUERY \[QUERY ...]]
 python3 tourist.py
 
 ![total](examples/total.png)
+
+python3 tourist.py -q "Europe"
+
+![total](examples/europe.png)
+
+python3 tourist.py -q "India" -q "China"
+
+![total](examples/india_china.png)
