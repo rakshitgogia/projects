@@ -22,9 +22,9 @@ python3 tourist.py
 
 ![total](examples/total.png)
 
-python3 tourist.py -q "Europe"
+python3 tourist.py -q "Southeast Asia"
 
-![total](examples/europe.png)
+![total](examples/southeast_asia.png)
 
 python3 tourist.py -q "India" -q "China"
 

@@ -46,4 +46,5 @@ else:
     plt.ylabel("Number of tourist arrivals in 2017 from " + str(query))
 xticks_labels = list(df.index.strftime('%b'))
 plt.xticks(df.index, xticks_labels)
+plt.savefig('examples/southeast_asia.png', bbox_inches='tight')
 plt.show()
