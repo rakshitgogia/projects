@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import argparse
 
 
-def get_query():
+def get_query(default_query):
     # default: shows the total tourist arrivals if no command-line arguments
     # for a specific region are provided
-    query = 'total'
+    query = default_query
     # parse command line arguments
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -68,7 +68,7 @@ def make_plot(query_lower, query):
     plt.show()
 
 
-my_query = get_query()
+my_query = get_query("total")
 my_query_lower = to_lower(my_query)
 make_plot(my_query_lower, my_query)
 

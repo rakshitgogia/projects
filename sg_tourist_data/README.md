@@ -1,7 +1,7 @@
 # Singapore Tourist Data 2017
 By Rakshit Gogia
 
-Version 1.0, 23rd August 2018
+Version 1.1, 25th August 2018
 
 This program uses pandas and matplotlib libraries to provide a visualisation for Singapore\'s tourist arrival data in 2017.
 The data is publicly available at https://www.stb.gov.sg/statistics-and-market-insights/Pages/statistics-Visitor-Arrivals.aspx.
