@@ -21,7 +21,6 @@ def get_query(default_query):
     if args.query:
         args.query = args.query.replace(', ', ',')
         query = args.query.split(',')
-        # query = [' '.join(region) for region in args.query]
     if len(query) == 1:
         query = ' '.join(query)
     return query
