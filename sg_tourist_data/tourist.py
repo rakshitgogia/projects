@@ -13,12 +13,15 @@ def get_query(default_query):
         description='This program uses pandas and matplotlib libraries to provide'
                     ' a visualisation for Singapore\'s tourist arrival data in 2017')
 
-    parser.add_argument('-q', '--query', nargs= '+', action='append',
+    parser.add_argument('-q', '--query',
                         help='Name of specific country or region you want '
-                             'a visualisation for')
+                             'a visualisation for. Multiple queries can be '
+                             'separated by commas')
     args = parser.parse_args()
     if args.query:
-        query = [' '.join(region) for region in args.query]
+        args.query = args.query.replace(', ', ',')
+        query = args.query.split(',')
+        # query = [' '.join(region) for region in args.query]
     if len(query) == 1:
         query = ' '.join(query)
     return query

@@ -8,14 +8,15 @@ The data is publicly available at https://www.stb.gov.sg/statistics-and-market-i
 
 ## Usage
 
-python3 sg_tourist_data.py \[-h] \[-q QUERY \[QUERY ...]]
+python3 tourist.py \[-h] \[-q QUERY]
 
 ### optional arguments:
 ```
   -h, --help            show this help message and exit
-  -q QUERY [QUERY ...], --query QUERY [QUERY ...]
+  -q QUERY, --query QUERY
                         Name of specific country or region you want a
-                        visualisation for
+                        visualisation for. Multiple queries can be separated
+                        by commas
 ```
 ### examples:
 python3 tourist.py
@@ -26,6 +27,6 @@ python3 tourist.py -q "Southeast Asia"
 
 ![total](examples/southeastasia.png)
 
-python3 tourist.py -q "India" -q "China"
+python3 tourist.py -q "India, China"
 
 ![total](examples/india_china.png)
