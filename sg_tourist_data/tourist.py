@@ -7,8 +7,6 @@ def get_query():
     # default: shows the total tourist arrivals if no command-line arguments
     # for a specific region are provided
     query = 'total'
-    query = ["SOUTHEAST ASIA", "GREATER CHINA", "NORTH ASIA", "SOUTH ASIA",
-             "WEST ASIA", "AMERICAS", "EUROPE", "OCEANIA", "AFRICA"]
     # parse command line arguments
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,

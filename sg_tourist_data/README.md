@@ -1,8 +1,6 @@
 # Singapore Tourist Data 2017
 By Rakshit Gogia
 
-![total](examples/southeastasia_greaterchina_northasia_southasia_westasia_americas_europe_oceania_africa.png)
-
 Version 1.0, 23rd August 2018
 
 This program uses pandas and matplotlib libraries to provide a visualisation for Singapore\'s tourist arrival data in 2017.
