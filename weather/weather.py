@@ -96,7 +96,7 @@ class Weatherman:
 
 
 # default is Celsius mode
-my_weatherman = Weatherman('C')
+my_weatherman = Weatherman('F')
 
 my_weatherman.validate_input()
 my_weatherman.read_data()
