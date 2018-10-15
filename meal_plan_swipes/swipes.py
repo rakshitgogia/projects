@@ -11,7 +11,6 @@ if (len(sys.argv) != 2):
 num_swipes = int(sys.argv[1])
 days_since = date.today() - first_day
 days_till = last_day - date.today()
-days_in_semester = last_day - first_day
 current_rate = (total_swipes - num_swipes)/days_since.days
 required_rate = num_swipes/days_till.days
 
