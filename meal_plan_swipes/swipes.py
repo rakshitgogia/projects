@@ -11,8 +11,8 @@ if (len(sys.argv) != 2):
 num_swipes = int(sys.argv[1])
 days_since = date.today() - first_day
 days_till = last_day - date.today()
-current_rate = (total_swipes - num_swipes)/days_since.days
-required_rate = num_swipes/days_till.days
+current_rate = (total_swipes - num_swipes) / days_since.days
+required_rate = num_swipes / days_till.days
 
 color_red = '\033[91m'
 color_end = '\033[0m'
@@ -22,3 +22,9 @@ print("Since", first_day.strftime("%B %-d,"),
       "you have been using", color_red + "{}".format(round(current_rate, 2)) + color_end, "swipes per day.")
 print("To survive until", last_day.strftime("%B %-d,"), "you need to use",
       color_red + "{}".format(round(required_rate, 2)) + color_end, "swipes per day.")
+
+if date.today() < date(2018, 11, 22):
+    special_rate = num_swipes / (days_till.days - 2.5)
+    print("\nAccounting for Toronto trip, you need to use",
+            color_red + "{}".format(round(special_rate, 2)) + color_end, "swipes per day.")
+
